@@ -904,7 +904,7 @@ function generateInterfaceDeclaration(
   // When oneof=unions, we generate a single property with an ADT per `oneof` clause.
   const processedOneofs = new Set<number>();
 
-  messageDesc.field.forEach((fieldDesc, index) => {
+  messageDesc.field.sort((a, b) => a.name < b.name ? -1 : a.name > b.name ? 1 : 0).forEach((fieldDesc, index) => {
     if (isWithinOneOfThatShouldBeUnion(options, fieldDesc)) {
       const { oneofIndex } = fieldDesc;
       if (!processedOneofs.has(oneofIndex)) {
